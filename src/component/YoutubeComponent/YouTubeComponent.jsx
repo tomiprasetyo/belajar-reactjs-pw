@@ -1,6 +1,6 @@
 import React from 'react'
 import './YoutubeComponent.css'
-import fotoku from './fotoku.jpg';
+import fotoku from './../../assets/fotoku.jpg';
 
 const YouTubeComponent = (props) => {
     return (
