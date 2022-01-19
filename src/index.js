@@ -1,14 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+
 import reportWebVitals from "./reportWebVitals";
-import ClassComponent from "./container/ClassComponent";
-import FunctionalComponent from "./component/FunctionalComponent";
+import Home from "./container/Home/Home";
 
 ReactDOM.render(
   <React.StrictMode>
-    <FunctionalComponent />
+    <Home />
   </React.StrictMode>,
   document.getElementById("root")
 );
