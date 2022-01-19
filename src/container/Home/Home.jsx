@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Product from '../Product/Product'
+import LifeCycleComponent from '../LifeCycleComponent/LifeCycleComponent'
 
 class Home extends Component {
     render() {
@@ -13,9 +13,13 @@ class Home extends Component {
                 <YouTubeComponent time='09.12' title='ReactJS' desc='Komponen Dinamis' />
                 <YouTubeComponent /> */}
 
-                <p>Counter</p>
+                {/* <p>Counter</p>
                 <hr />
-                <Product />
+                <Product /> */}
+
+                <p>LifeCycle Component</p>
+                <hr />
+                <LifeCycleComponent />
             </div>
         )
     }
