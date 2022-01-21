@@ -7,6 +7,7 @@ class LifeCycleComponent extends Component {
         this.state = {
             count: 1
         }
+        console.log('constructor')
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -16,16 +17,23 @@ class LifeCycleComponent extends Component {
 
 
     componentDidMount() {
-        console.log('constructor')
-        setTimeout(() => {
-            this.setState({
-                count: 2
-            })
-        }, 3000)
+        console.log('componentDidMount')
+        // setTimeout(() => {
+        //     this.setState({
+        //         count: 2
+        //     })
+        // }, 5000)
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log('shouldComponentUpdate')
+        console.group('shouldComponentUpdate')
+        // console.log('nextProps', nextProps)
+        console.log('nextState', nextState)
+        console.log('this state: ', this.state)
+        console.groupEnd()
+        if (nextState.count >= 4) {
+            return false
+        }
         return true
     }
 
@@ -42,9 +50,16 @@ class LifeCycleComponent extends Component {
         console.log('componentWillUnmount')
     }
 
+    changeCount = () => {
+        this.setState({
+            count: this.state.count + 1
+        })
+    }
+
     render() {
+        console.log('render')
         return (
-            <button className='btn'>Component Button {this.state.count}</button>
+            <button className='btn' onClick={this.changeCount}>Component Button {this.state.count}</button>
         )
     }
 }

@@ -2,6 +2,19 @@ import React, { Component } from 'react'
 import LifeCycleComponent from '../LifeCycleComponent/LifeCycleComponent'
 
 class Home extends Component {
+
+    state = {
+        showComponent: true
+    }
+
+    componentDidMount() {
+        // setTimeout(() => {
+        //     this.setState({
+        //         showComponent: false
+        //     })
+        // }, 15000)
+    }
+
     render() {
         return (
             <div>
@@ -19,7 +32,9 @@ class Home extends Component {
 
                 <p>LifeCycle Component</p>
                 <hr />
-                <LifeCycleComponent />
+                {
+                    this.state.showComponent ? <LifeCycleComponent /> : null
+                }
             </div>
         )
     }
