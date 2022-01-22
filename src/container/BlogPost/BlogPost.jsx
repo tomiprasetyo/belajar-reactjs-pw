@@ -18,8 +18,10 @@ class BlogPost extends Component {
 
     handleRemove = (data) => {
         axios.delete(`http://localhost:3001/posts/${data}`)
-        .then((res) => console.log(res))
-        this.getPostAPI()
+        .then((res) => {
+            this.getPostAPI()
+            console.log(res)
+        })
     }
 
     componentDidMount() {
