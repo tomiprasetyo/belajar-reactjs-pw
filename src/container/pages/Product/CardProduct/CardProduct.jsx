@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import dagingAyam from './../../assets/daging-ayam.jpg';
+import dagingAyam from '../../../../assets/daging-ayam.jpg';
 
 class CardProduct extends Component {
     state = {
