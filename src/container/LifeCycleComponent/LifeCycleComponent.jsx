@@ -59,7 +59,12 @@ class LifeCycleComponent extends Component {
     render() {
         console.log('render')
         return (
+            <>
+            <p>Halaman LifeCycle</p>
+            <hr />
             <button className='btn' onClick={this.changeCount}>Component Button {this.state.count}</button>
+            
+            </>
         )
     }
 }

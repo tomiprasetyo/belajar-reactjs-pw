@@ -10,7 +10,8 @@ class BlogPost extends Component {
             title: '',
             body: '',
             userId: 1
-        }
+        },
+        isUpdate: false
     }
 
     getPostAPI = () => {
@@ -27,11 +28,49 @@ class BlogPost extends Component {
         .then((res) => {
             console.log(res)
             this.getPostAPI()
-
+            this.setState({
+                formBlogPost: {
+                    id: 1,
+                    title: '',
+                    body: '',
+                    userId: 1
+                },
+            })
         }, (err) => {
             console.log('error: ', err)
         })
     }
+
+    putDataToAPI = () => {
+        axios.put(`http://localhost:3001/posts/${this.state.formBlogPost.id}`, this.state.formBlogPost).then((res) => {
+            console.log(res)
+            this.getPostAPI()
+            this.setState({
+                isUpdate: false,
+                formBlogPost: {
+                    id: 1,
+                    title: '',
+                    body: '',
+                    userId: 1
+                },
+            })
+        })
+    }
+
+    // handleFormChangeClear = () => {
+    //     let formBlogPostNew = {...this.state.formBlogPost}
+    //     formBlogPostNew['id'] = ''
+    //     formBlogPostNew['title'] = '' 
+    //     formBlogPostNew['body'] = ''
+    //     formBlogPostNew['userId'] = ''
+
+    //     this.setState({
+    //         formBlogPost: formBlogPostNew,
+    //         isUpdate: false
+    //     }, (err) => {
+    //         console.log(err)
+    //     })
+    // }
 
     handleRemove = (data) => {
         axios.delete(`http://localhost:3001/posts/${data}`)
@@ -41,10 +80,20 @@ class BlogPost extends Component {
         })
     }
 
+    handleUpdate = (data) => {
+        console.log(data)
+        this.setState({
+            formBlogPost: data,
+            isUpdate: true
+        })
+    }
+
     handleFormChange = (event) => {
         let formBlogPostNew = {...this.state.formBlogPost}
         let timeStamp = new Date().getTime()
-        formBlogPostNew['id'] = timeStamp
+        if(!this.state.isUpdate) {
+            formBlogPostNew['id'] = timeStamp
+        }
         formBlogPostNew[event.target.name] = event.target.value
         this.setState({
             formBlogPost: formBlogPostNew
@@ -52,7 +101,11 @@ class BlogPost extends Component {
     }
 
     handleSubmit = () => {
-        this.postDataToAPI()
+        if(this.state.isUpdate) {
+            this.putDataToAPI()
+        } else {
+            this.postDataToAPI()
+        }
     }
 
     componentDidMount() {
@@ -62,17 +115,19 @@ class BlogPost extends Component {
     render() {
         return (
             <Fragment>
+                <p>Halaman Blog Post</p>
+                <hr />
                 <p className='section-title'>BlogPost</p>
                 <div className="form-add-post">
                     <label htmlFor="title">Title</label>
-                    <input type="text" name='title' placeholder='add title' onChange={this.handleFormChange} />
+                    <input type="text" value={this.state.formBlogPost.title} name='title' placeholder='add title' onChange={this.handleFormChange} />
                     <label htmlFor="body">Blog Content</label>
-                    <textarea name="body" id="body" cols="30" rows="10" placeholder='add blog content' onChange={this.handleFormChange}></textarea>
+                    <textarea name="body" id="body" cols="30" rows="10" value={this.state.formBlogPost.body} placeholder='add blog content' onChange={this.handleFormChange}></textarea>
                     <button className='btn-submit' onClick={this.handleSubmit}>Simpan</button>
                 </div>
                 {
                     this.state.post.map(post => {
-                        return <Post key={post.id} data={post} remove={this.handleRemove} />
+                        return <Post key={post.id} data={post} remove={this.handleRemove} update={this.handleUpdate} />
                     })
                 }
             </Fragment>
