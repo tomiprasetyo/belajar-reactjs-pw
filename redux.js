@@ -3,15 +3,38 @@ const createStore = redux.createStore;
 
 const initialState = {
   value: 0,
+  age: 21,
 };
 
 // Reducer
 const rootReducer = (state = initialState, action) => {
-  return state;
+  switch (action.type) {
+    case "ADD_VALUE":
+      return {
+        ...state,
+        age: state.age + 1,
+      };
+    case "CHANGE_VALUE":
+      return {
+        ...state,
+        value: state.value + action.newValue,
+      };
+    default:
+      return state;
+  }
 };
+
 // Store
 const store = createStore(rootReducer);
 console.log(store.getState());
-// Dsipatch / Action
 
 // Subscription
+store.subscribe(() => {
+  console.log("Store changes: ", store.getState());
+});
+
+// Dispatch / Action
+store.dispatch({ type: "ADD_AGE" });
+store.dispatch({ type: "CHANGE_VALUE", newValue: 12 });
+
+console.log(store.getState());
