@@ -1,34 +1,8 @@
 import React, { Component } from 'react'
 import dagingAyam from '../../../../assets/daging-ayam.jpg';
+import Counter from './Counter';
 
 class CardProduct extends Component {
-    state = {
-        order: 4
-    }
-
-    handleCounterChange = (newValue) => {
-        this.props.onCounterChange(newValue)
-    }
-
-    handlePlus = () => {
-        this.setState({
-            order: this.state.order + 1
-        }, () => {
-            this.handleCounterChange(this.state.order)
-        })
-
-    }
-
-    handleMinus = () => {
-        if (this.state.order > 0) {
-            this.setState({
-                order: this.state.order - 1
-            }, () => {
-                this.handleCounterChange(this.state.order)
-            })
-        }
-    }
-
     render() {
         return (
         <div className='card'>
@@ -37,11 +11,7 @@ class CardProduct extends Component {
             </div>
             <p className='product-title'>Daging Ayam Segar Utuh </p>
             <p className='product-price'>Rp 40.000</p>
-            <div className='counter'>
-                <button className='minus' onClick={this.handleMinus}> - </button>
-                <input type="text" value={this.state.order} onChange={this.handleCounterChange} />
-                <button className='plus' onClick={this.handlePlus}> + </button>
-            </div>
+            <Counter onCounterChange={(value) => this.props.onCounterChange(value)} />
         </div>
         )
     }
