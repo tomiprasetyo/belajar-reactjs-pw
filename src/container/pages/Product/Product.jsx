@@ -3,19 +3,21 @@ import './Product.css'
 import logo from '../../../assets/logo.png';
 import trolley from '../../../assets/trolley.jpg';
 import CardProduct from './CardProduct/CardProduct';
+import { connect } from 'react-redux';
+
 
 
 
 class Product extends Component {
-    state = {
-        order: 4
-    }
+    // state = {
+    //     order: 4
+    // }
 
-    handleCounterChange = (newValue) => {
-        this.setState({
-            order: newValue
-        })
-    }
+    // handleCounterChange = (newValue) => {
+    //     this.setState({
+    //         order: newValue
+    //     })
+    // }
 
     render() {
         return (
@@ -28,13 +30,19 @@ class Product extends Component {
                     </div>
                     <div className="trolley">
                         <img src={trolley} alt="trolley" />
-                        <div className="count">{this.state.order}</div>
+                        <div className="count">{this.props.order}</div>
                     </div>
                 </div>
-                <CardProduct onCounterChange={(value) =>this.handleCounterChange(value)} />
+                <CardProduct />
             </Fragment>
         )
     }
 }
 
-export default Product;
+const mapStateToProps = (state) => {
+    return {
+        order: state.totalOrder
+    }
+}
+
+export default connect(mapStateToProps)(Product);
